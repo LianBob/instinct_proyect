@@ -1,0 +1,4 @@
+# roca.ob
+object Roca
+char #
+resource_max 100

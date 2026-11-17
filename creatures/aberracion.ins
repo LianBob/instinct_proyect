@@ -1,0 +1,39 @@
+# aberracion.ins
+# Experimento fallido del científico. Lento, pero se multiplica sin control.
+creature Aberracion
+faction laboratorio
+health 70
+vision 4
+lifespan 400
+start:
+    if enemy_dist == 1 goto aplastar
+    if enemy_dist > 0 goto arrastrarse
+    if health > 40 goto dividirse
+    goto flotar
+flotar:
+    move(random % 3 - 1, random % 3 - 1, 1)
+    goto start
+arrastrarse:
+    move(enemy_dx, enemy_dy, 1)
+    goto start
+aplastar:
+    consume(enemy_dx, enemy_dy, 15, 10)
+    goto start
+dividirse:
+    if see(x, y + 1) == GROUND goto parir_abajo
+    if see(x, y - 1) == GROUND goto parir_arriba
+    if see(x + 1, y) == GROUND goto parir_derecha
+    if see(x - 1, y) == GROUND goto parir_izquierda
+    goto flotar
+parir_abajo:
+    reproduce(0, 1, 25)
+    goto start
+parir_arriba:
+    reproduce(0, -1, 25)
+    goto start
+parir_derecha:
+    reproduce(1, 0, 25)
+    goto start
+parir_izquierda:
+    reproduce(-1, 0, 25)
+    goto start

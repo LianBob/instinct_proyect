@@ -1,0 +1,5 @@
+# tierra_maldita.te
+terrain TierraMaldita
+char x
+resource_max 40
+regen 1

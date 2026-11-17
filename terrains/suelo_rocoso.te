@@ -1,0 +1,5 @@
+# suelo_rocoso.te
+terrain SueloRocoso
+char :
+resource_max 200
+regen 1

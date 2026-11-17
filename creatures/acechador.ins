@@ -1,0 +1,28 @@
+# acechador.ins
+# Criatura creada por el científico para cazar orcos. Rápida y silenciosa.
+creature Acechador
+faction laboratorio
+health 40
+vision 8
+lifespan 300
+start:
+    if enemy_dist == 1 goto morder
+    if enemy_dist > 0 goto acechar
+    if health < 15 goto retirarse
+    if random < 5 goto rugir
+    goto patrullar
+patrullar:
+    move(random % 3 - 1, random % 3 - 1, 2)
+    goto start
+acechar:
+    move(enemy_dx, enemy_dy, 2)
+    goto start
+morder:
+    consume(enemy_dx, enemy_dy, 12, 8)
+    goto start
+retirarse:
+    move(-enemy_dx, -enemy_dy, 3)
+    goto start
+rugir:
+    roar("...")
+    goto start

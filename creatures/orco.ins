@@ -1,0 +1,62 @@
+# orco.ins
+# El último orco de su clan, solo en un mundo que ya no reconoce.
+# Pelea, huye, y ruge para no olvidar quién es.
+creature Orco
+faction horda
+health 80
+vision 6
+lifespan 600
+start:
+    if health < 25 goto huir
+    if enemy_dist == 1 goto atacar
+    if enemy_dist > 0 goto perseguir
+    if enemies_near > 2 goto reagrupar
+    if health > 60 and allies_near > 0 goto criar
+    if allies_near > 1 goto celebrar
+    goto vagar
+vagar:
+    move(random % 3 - 1, random % 3 - 1, 1)
+    goto start
+atacar:
+    attack(enemy_dx, enemy_dy, 18)
+    goto start
+perseguir:
+    move(enemy_dx, enemy_dy, 2)
+    goto start
+huir:
+    move(-enemy_dx, -enemy_dy, 3)
+    if random < 20 goto rugir
+    goto start
+rugir:
+    roar("¡no hoy, bestia!")
+    goto start
+reagrupar:
+    if ally_dist > 0 goto ir_aliado
+    move(random % 3 - 1, random % 3 - 1, 2)
+    goto start
+ir_aliado:
+    move(ally_dx, ally_dy, 2)
+    if enemy_dist == 1 goto atacar
+    goto start
+criar:
+    if see(x, y + 1) == GROUND goto parir_abajo
+    if see(x, y - 1) == GROUND goto parir_arriba
+    if see(x + 1, y) == GROUND goto parir_derecha
+    if see(x - 1, y) == GROUND goto parir_izquierda
+    goto vagar
+parir_abajo:
+    reproduce(0, 1, 30)
+    goto start
+parir_arriba:
+    reproduce(0, -1, 30)
+    goto start
+parir_derecha:
+    reproduce(1, 0, 30)
+    goto start
+parir_izquierda:
+    reproduce(-1, 0, 30)
+    goto start
+celebrar:
+    say("¡la horda vive!")
+    roar("WAAAGH")
+    goto start

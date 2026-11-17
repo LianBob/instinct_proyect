@@ -1,0 +1,4 @@
+# totem.ob
+object Totem
+char T
+resource_max 50

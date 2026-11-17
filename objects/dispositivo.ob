@@ -1,0 +1,4 @@
+# dispositivo.ob
+object Dispositivo
+char ?
+resource_max 30

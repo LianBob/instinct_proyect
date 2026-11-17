@@ -1,0 +1,3 @@
+object ArbolMuerto
+char Y
+resource_max 80
